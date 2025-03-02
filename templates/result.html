@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/result.css') }}">
+</head>
+
+<body>
+
+    <header>
+        <div>
+            <img class="results" src="{{ url_for('static', filename='images/results.svg') }}" alt="Canva Design">
+        </div>
+    </header>
+
+    <main>
+        <div class="form-wrapper">
+            <h1 class="form_title">SCRAPE CARD</h1>
+            <form id="search-form" class="form_url">
+                <input type="text" id="word" name="word" required><br><br>
+                <input type="submit" value="Submit">
+                <div id="no-result" class="no-result hidden">
+                    No matching results found.
+                </div>
+            </form>
+        </div>
+
+
+        <div id="cardContainer" class="card-container">
+            {% for word, count in word_data.items() %}
+            <div class="card covered">
+                <h3>{{ word }}</h3>
+                <p>{{ count }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </main>
+
+    <script>
+        document.getElementById('search-form').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const searchWord = document.getElementById('word').value.toLowerCase().trim();
+
+            let found = false;
+            let cards = document.querySelectorAll('.card');
+
+            cards.forEach(card => {
+                const cardWord = card.querySelector('h3').textContent;
+
+                if (cardWord === searchWord) {
+                    card.classList.replace("covered", "uncovered");
+                    found = true;
+                }
+            });
+
+            if (!found) {
+                document.getElementById('no-result').classList.remove('hidden');
+                setTimeout(function () {
+                    document.getElementById('no-result').classList.add('hidden');
+
+                }, 2000);
+
+            }
+        });
+    </script>
+
+</body>
+
+</html>

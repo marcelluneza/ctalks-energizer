@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scrape and Scrape!</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+</head>
+
+<body>
+    <header>
+        <img class="title" src="{{ url_for('static', filename='images/title.svg') }}" alt="Canva Design">
+    </header>
+
+    <main>
+        <!-- Button to trigger Python code -->
+        <form class="form_url" action="/run_code" method="GET">
+            <h1 class="form_title">SCRAPE IT!</h1>
+            <input type="text" id="inputData" name="inputData" required><br><br>
+            <input type="submit" value="SCRAPE">
+        </form>
+    </main>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+
+</html>
